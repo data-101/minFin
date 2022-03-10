@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-minfin-dev-114952-authRole",
+      "UnauthRoleArn": "arn:aws:iam::417084310984:role/amplify-minfin-dev-114952-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::417084310984:role/amplify-minfin-dev-114952-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-minfin-dev-114952-deployment",
+      "UnauthRoleName": "amplify-minfin-dev-114952-unauthRole",
+      "StackName": "amplify-minfin-dev-114952",
+      "StackId": "arn:aws:cloudformation:us-east-1:417084310984:stack/amplify-minfin-dev-114952/1d08d430-a092-11ec-b71c-0e6434153721",
+      "AmplifyAppId": "dlwwcjcf225gz"
+    }
+  }
+}
