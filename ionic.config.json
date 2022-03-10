@@ -1,0 +1,7 @@
+{
+  "name": "minFin",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
