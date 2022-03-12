@@ -32,7 +32,7 @@ const Home: React.FC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>ZAM</IonTitle>
+          <IonTitle>MinFin</IonTitle>
           <IonButton slot='end' href='/login'>Sign-in</IonButton>
         </IonToolbar>
       </IonHeader>
