@@ -54,6 +54,6 @@ export const getProducts = async (searchText: string = ''): Promise<Article[]> =
 export const getProductById = async (id: string): Promise<Article> => {
     // console.log(products);
     // return products.filter(p => p.id === id)[0]
-    return products[0];
+    return products[Number(id)-1];
 }
 
