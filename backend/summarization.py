@@ -1,6 +1,6 @@
 import requests
 
-API_KEY = 'b7bfc0337ecba6fab3800ed75141c7aa'
+API_KEY = # Insert API key here
 
 # Summarizes news at newsUrl
 def summarize(newsContent):
