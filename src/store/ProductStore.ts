@@ -2,8 +2,9 @@ import { ProductList } from "../components/ProductList";
 import { Article } from "../model/Article";
 import { EdamanObject } from "../model/FoodAPI";
 import { Product } from "../model/Product";
-
-
+import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
+import { FreeNewsResponse } from "../model/FreeNewsResponse";
+import { alertCircle } from "ionicons/icons";
 
 
 const products: Article[] = [
@@ -12,7 +13,7 @@ const products: Article[] = [
         "title": "How tech giants like Apple benefit from cutting off Russia",
         "date": "Fri, March 4, 2022",
         "summary": "Tech giants like Apple and Microsoft are pulling out of sales in Russia. They're doing it for humanitarian reasons, but also because it's the right thing to do. It gives them a boost when it comes to their moral standing in the business community and for potential customers.",
-        "image" : "https://i.insider.com/5fe4d819edf8920018093b41?width=1200&format=jpeg"
+        "image": "https://i.insider.com/5fe4d819edf8920018093b41?width=1200&format=jpeg"
     },
     {
         "title": "Ukrainian-founded Grammarly is donating all the money it made in Russia since 2014",
@@ -44,9 +45,32 @@ export const getProducts = async (searchText: string = ''): Promise<Article[]> =
     if (searchText === '') {
         return products
     }
+    const options: AxiosRequestConfig = {
+        method: 'GET',
+        url: 'https://free-news.p.rapidapi.com/v1/search',
+        params: { q: `${searchText} stock`, lang: 'en' },
+        headers: {
+            'X-RapidAPI-Host': 'free-news.p.rapidapi.com',
+            'X-RapidAPI-Key': 'e3cd6237d0msh226bc6d68b84f2cp1af7e3jsn6b83c2fb2e63'
+        }
+    };
+
+    return axios.request<FreeNewsResponse>(options).then(function (response: AxiosResponse<FreeNewsResponse>) {
+        // console.log(response.data);
+        const art: Article[] = response.data.articles.map<Article>(value => ({
+            "title": value.title,
+            "date": value.published_date,
+            "summary": value.summary,
+            "id": value._id,
+            "image": value.media
+        }));
+        return art;
+    }).catch(function (error: any) {
+        return [] as Article[];
+    });
 
 
-    return products;
+
     // return products.filter((product) => {
     //     return product.name.toLowerCase().startsWith(searchText.toLowerCase());
     // });
@@ -55,6 +79,6 @@ export const getProducts = async (searchText: string = ''): Promise<Article[]> =
 export const getProductById = async (id: string): Promise<Article> => {
     // console.log(products);
     // return products.filter(p => p.id === id)[0]
-    return products[Number(id)-1];
+    return products[Number(id) - 1];
 }
 
