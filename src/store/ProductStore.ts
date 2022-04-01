@@ -7,6 +7,13 @@ import { FreeNewsResponse } from "../model/FreeNewsResponse";
 import { alertCircle } from "ionicons/icons";
 
 
+import create from 'zustand'
+
+const useStore = create(() => ({
+    products: [] as Article[]
+}))
+
+
 const products: Article[] = [
     {
         "id": "1",
@@ -55,7 +62,7 @@ export const getProducts = async (searchText: string = ''): Promise<Article[]> =
         }
     };
 
-    return axios.request<FreeNewsResponse>(options).then(function (response: AxiosResponse<FreeNewsResponse>) {
+    const hello = await axios.request<FreeNewsResponse>(options).then(function (response: AxiosResponse<FreeNewsResponse>) {
         // console.log(response.data);
         const art: Article[] = response.data.articles.map<Article>(value => ({
             "title": value.title,
@@ -69,8 +76,8 @@ export const getProducts = async (searchText: string = ''): Promise<Article[]> =
         return [] as Article[];
     });
 
-
-
+    useStore.setState({ products: hello })
+    return hello;
     // return products.filter((product) => {
     //     return product.name.toLowerCase().startsWith(searchText.toLowerCase());
     // });
@@ -79,6 +86,6 @@ export const getProducts = async (searchText: string = ''): Promise<Article[]> =
 export const getProductById = async (id: string): Promise<Article> => {
     // console.log(products);
     // return products.filter(p => p.id === id)[0]
-    return products[Number(id) - 1];
+    return useStore.getState().products.filter(p => p.id === id)[0];
 }
 
