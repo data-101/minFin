@@ -87,8 +87,7 @@ const ProductPage: React.FC<ProductPageProp> = ({ match }) => {
                     </IonToolbar>
                 </IonHeader>
 
-                <div className="product-background">
-                    {/* <img src={product.image} alt={product.name} /> */}
+                <div className="product-background" style={{backgroundImage: `url(${product.image})`}}>
                     <h2>{product.title}</h2>
                 </div>
 

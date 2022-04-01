@@ -11,7 +11,8 @@ const products: Article[] = [
         "id": "1",
         "title": "How tech giants like Apple benefit from cutting off Russia",
         "date": "Fri, March 4, 2022",
-        "summary": "Tech giants like Apple and Microsoft are pulling out of sales in Russia. They're doing it for humanitarian reasons, but also because it's the right thing to do. It gives them a boost when it comes to their moral standing in the business community and for potential customers."
+        "summary": "Tech giants like Apple and Microsoft are pulling out of sales in Russia. They're doing it for humanitarian reasons, but also because it's the right thing to do. It gives them a boost when it comes to their moral standing in the business community and for potential customers.",
+        "image" : "https://i.insider.com/5fe4d819edf8920018093b41?width=1200&format=jpeg"
     },
     {
         "title": "Ukrainian-founded Grammarly is donating all the money it made in Russia since 2014",

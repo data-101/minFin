@@ -1,5 +1,5 @@
 import { IonButton, IonContent, IonHeader, IonIcon, IonLabel, IonPage, IonSearchbar, IonTabBar, IonTabButton, IonTabs, IonTitle, IonToolbar } from '@ionic/react';
-import { calendar, people, informationCircle } from 'ionicons/icons';
+import { calendar, people, informationCircle, home, book, albums } from 'ionicons/icons';
 import { useEffect, useState } from 'react';
 import ExploreContainer from '../components/ExploreContainer';
 import { ProductList } from '../components/ProductList';
@@ -47,16 +47,20 @@ const Home: React.FC = () => {
         < ProductList products={producList} />
       </IonContent >
 
-      {/* <IonTabBar slot="bottom">
-        <IonTabButton tab="schedule" href="/home">
-          <IonIcon icon={calendar} />
-          <IonLabel>Store</IonLabel>
+      { <IonTabBar slot="bottom">
+        <IonTabButton tab="home" href="/home">
+          <IonIcon icon={home} />
+          <IonLabel>Home</IonLabel>
         </IonTabButton>
-        <IonTabButton tab="list" href="/list">
-          <IonIcon icon={people} />
-          <IonLabel>List</IonLabel>
+        <IonTabButton tab="portfolio" href="/list">
+          <IonIcon icon={albums} />
+          <IonLabel>Portfolio</IonLabel>
         </IonTabButton>
-      </IonTabBar> */}
+        <IonTabButton tab="news" href="/news">
+          <IonIcon icon={book} />
+          <IonLabel>News</IonLabel>
+        </IonTabButton>
+      </IonTabBar> }
     </IonPage >
 
 
