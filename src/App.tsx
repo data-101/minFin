@@ -25,6 +25,7 @@ import ProductPage from './pages/ProductPage';
 import Test from './pages/Test';
 import ItemList from './pages/ItemList';
 import Login from './pages/Login';
+import News from './pages/News';
 
 setupIonicReact();
 
@@ -41,6 +42,9 @@ const App: React.FC = () => (
         </Route>
         <Route exact path="/list">
           <ItemList />
+        </Route>
+        <Route exact path="/news">
+          <News />
         </Route>
         <Route exact path="/login">
           <Login />
