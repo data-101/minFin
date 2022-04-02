@@ -89,3 +89,35 @@ export const getProductById = async (id: string): Promise<Article> => {
     return useStore.getState().products.filter(p => p.id === id)[0];
 }
 
+// export const getPortfolio = async (): Promise<Article[]> => {
+//     // console.log(searchText)
+//     // if (searchText === '') {
+//     //     return products
+//     // }
+
+//     const options: AxiosRequestConfig = {
+//         method: 'GET',
+//         url: 'passwords-ssh.id0.one:8080/portfolio',
+//         params: { Cookie: 'session=eyJ1c2VyIjoidXNlciJ9.YkeZcQ.naM5IDGcq8jDai5-H2M1hP5maPs'}
+//     };
+
+//     const hello = await axios.request<FreeNewsResponse>(options).then(function (response: AxiosResponse<FreeNewsResponse>) {
+//         // console.log(response.data);
+//         const art: Article[] = response.data.articles.map<Article>(value => ({
+//             "title": value.title,
+//             "date": value.published_date,
+//             "summary": value.summary,
+//             "id": value._id,
+//             "image": value.media
+//         }));
+//         return art;
+//     }).catch(function (error: any) {
+//         return [] as Article[];
+//     });
+
+//     useStore.setState({ products: hello })
+//     return hello;
+//     // return products.filter((product) => {
+//     //     return product.name.toLowerCase().startsWith(searchText.toLowerCase());
+//     // });
+// }

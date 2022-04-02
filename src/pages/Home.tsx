@@ -11,7 +11,7 @@ import { Article } from '../model/Article';
 
 
 const Home: React.FC = () => {
-  const [searchText, setSearchText] = useState('');
+  const [searchText, setSearchText] = useState('Software companies');
   const [producList, setProductList] = useState<Article[]>([]);
 
   useEffect(() => {
