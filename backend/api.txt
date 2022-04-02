@@ -4,8 +4,17 @@ Result:
 {"msg":"signed up","result":"success"}
 
 Login with username and password:
-curl passwords-ssh.id0.one:8080/auth --data 'type=login&username=user&password=pass'
+curl -v passwords-ssh.id0.one:8080/auth --data 'type=login&username=user&password=pass'
 Result:
+...
+< HTTP/1.0 200 OK
+< Content-Type: application/json
+< Content-Length: 39
+< Vary: Cookie
+< Set-Cookie: session=eyJ1c2VyIjoidXNlciJ9.Ykebtg.I8Z-u2EpDpKwzi5rBM1wQQvp9bs; HttpOnly; Path=/
+< Server: Werkzeug/1.0.1 Python/3.5.3
+< Date: Sat, 02 Apr 2022 00:41:26 GMT
+< 
 {"msg":"logged in","result":"success"}
 
 Add to portfolio with session:
