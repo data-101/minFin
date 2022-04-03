@@ -8,7 +8,7 @@ import './Home.css';
 import { Article } from '../model/Article';
 
 const News: React.FC = () => {
-    const [searchText, setSearchText] = useState('Trending finance market');
+    const [searchText, setSearchText] = useState('Trending');
     const [producList, setProductList] = useState<Article[]>([]);
     useEffect(() => {
         getProducts(searchText).then(products => setProductList(products));

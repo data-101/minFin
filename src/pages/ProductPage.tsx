@@ -11,7 +11,7 @@ import { callOutline, callSharp, logoTwitter, logoGithub, logoInstagram, shareOu
 import { Product } from '../model/Product';
 import { getProductById } from '../store/ProductStore';
 import { Article } from '../model/Article';
-
+import { BrowserTab } from '@ionic-native/browser-tab';
 
 interface OwnProps extends RouteComponentProps {
     id?: string;
@@ -87,13 +87,13 @@ const ProductPage: React.FC<ProductPageProp> = ({ match }) => {
                     </IonToolbar>
                 </IonHeader>
 
-                <div className="product-background" style={{backgroundImage: `url(${product.image})`}}>
-                    <h2 style={{backgroundColor: "#171717"}}>{product.title}</h2>
+                <div className="product-background" style={{flex:1 ,width: undefined, height: undefined, backgroundImage: `url(${product.image})`}}>
+                    <h2 style={{backgroundColor: "#171717"}}>
+                    <a target="_blank" rel="noopener noreferrer" href={product.link}>{product.title}</a></h2>
                 </div>
 
                 <div className="ion-padding product-detail">
                     <p> {product.summary}</p>
-
                     <hr />
 
                 </div>
