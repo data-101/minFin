@@ -6,6 +6,7 @@ import { ProductList } from '../components/ProductList';
 import { getProducts } from '../store/ProductStore';
 import './Home.css';
 import { Article } from '../model/Article';
+import { PortfolioList } from '../components/PortfolioList';
 
 const ItemList: React.FC = () => {
     const [searchText, setSearchText] = useState('');
@@ -37,7 +38,7 @@ const ItemList: React.FC = () => {
         </IonHeader>
         <ExploreContainer />
         {/* <IonSearchbar inputmode="search" onIonChange={e => setSearchText(e.detail.value!)} onKeyPress={filter}></IonSearchbar> */}
-        < ProductList products={producList} />
+        < PortfolioList products={producList} />
       </IonContent >
 
         { <IonTabBar slot="bottom">

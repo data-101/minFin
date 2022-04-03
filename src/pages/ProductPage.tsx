@@ -11,7 +11,7 @@ import { callOutline, callSharp, logoTwitter, logoGithub, logoInstagram, shareOu
 import { Product } from '../model/Product';
 import { getProductById } from '../store/ProductStore';
 import { Article } from '../model/Article';
-import { BrowserTab } from '@ionic-native/browser-tab';
+
 
 interface OwnProps extends RouteComponentProps {
     id?: string;

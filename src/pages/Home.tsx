@@ -8,14 +8,20 @@ import { getProducts } from '../store/ProductStore';
 import './Home.css';
 import { Auth } from 'aws-amplify';
 import { Article } from '../model/Article';
+import { useLocation } from 'react-router-dom';
 
 
 const Home: React.FC = () => {
-  const [searchText, setSearchText] = useState('Software companies');
+  const [searchText, setSearchText] = useState<string >('Software companies');
   const [producList, setProductList] = useState<Article[]>([]);
 
+  const searchParams =new URLSearchParams(useLocation().search);
+
   useEffect(() => {
-    getProducts(searchText).then(products => setProductList(products));
+    // const query = new URLSearchParams(searchParams.search);
+    const s=searchParams.get('q') != null ? searchParams.get('q'):'';
+    // setSearchText(s)
+    getProducts(s ? s : searchText).then(products => setProductList(products));
   }, []);
 
   const filter = (e: React.KeyboardEvent<HTMLIonSearchbarElement>) => {
@@ -23,7 +29,7 @@ const Home: React.FC = () => {
     if (e.key != 'Enter') {
       return;
     }
-    getProducts(searchText).then(products => setProductList(products));
+    getProducts(searchText ? searchText : '').then(products => setProductList(products));
   };
 
 
