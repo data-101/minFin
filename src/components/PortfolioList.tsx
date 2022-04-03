@@ -1,7 +1,7 @@
 import React from 'react';
 import { IonList, IonInput, IonToggle, IonRadio, IonCheckbox, IonItemSliding, IonItemOption, IonItemOptions, IonGrid, IonRow, IonCol, IonAvatar } from '@ionic/react';
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent, IonItem, IonIcon, IonLabel, IonButton } from '@ionic/react';
-import { pin, wifi, wine, warning, walk } from 'ionicons/icons';
+import { pin, wifi, wine, warning, walk, trash } from 'ionicons/icons';
 import { Product } from '../model/Product';
 import { Article } from '../model/Article';
 
@@ -43,6 +43,7 @@ export const PortfolioList: React.FC<ProductProps> = ({ products }) => {
                                         <IonLabel>
                                             <h2>{product.title}</h2>
                                         </IonLabel>
+                                        <IonIcon icon={trash} />
                                     </IonItem>
                                 </IonCardHeader>
                             </IonCard>

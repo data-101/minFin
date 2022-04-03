@@ -15,14 +15,18 @@ const Home: React.FC = () => {
   const [searchText, setSearchText] = useState<string >('Software companies');
   const [producList, setProductList] = useState<Article[]>([]);
 
-  const searchParams =new URLSearchParams(useLocation().search);
 
+  const location = useLocation();
   useEffect(() => {
-    // const query = new URLSearchParams(searchParams.search);
-    const s=searchParams.get('q') != null ? searchParams.get('q'):'';
-    // setSearchText(s)
-    getProducts(s ? s : searchText).then(products => setProductList(products));
+    getProducts(searchText).then(products => setProductList(products));
   }, []);
+
+  useEffect(()=>{
+    const q=new URLSearchParams(location.search).get('q');
+    getProducts(q?q:'').then(products => setProductList(products));
+  },[location]);
+
+
 
   const filter = (e: React.KeyboardEvent<HTMLIonSearchbarElement>) => {
 
