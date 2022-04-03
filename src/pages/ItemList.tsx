@@ -33,7 +33,7 @@ const ItemList: React.FC = () => {
             <IonContent fullscreen>
         <IonHeader collapse="condense">
           <IonToolbar>
-            <IonTitle size="large">Blank</IonTitle>
+            <IonTitle size="large">Your Portfolio</IonTitle>
           </IonToolbar>
         </IonHeader>
         <ExploreContainer />
