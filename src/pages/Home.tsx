@@ -58,7 +58,7 @@ const Home: React.FC = () => {
       </IonContent >
 
       { <IonTabBar slot="bottom">
-        <IonTabButton tab="home" href="/home">
+        <IonTabButton tab="home" href="/home/?q=Software companies">
           <IonIcon icon={home} />
           <IonLabel>Home</IonLabel>
         </IonTabButton>
