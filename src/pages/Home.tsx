@@ -12,14 +12,11 @@ import { useLocation } from 'react-router-dom';
 
 
 const Home: React.FC = () => {
-  const [searchText, setSearchText] = useState<string >('Software companies');
+  const [searchText, setSearchText] = useState<string>('Software companies');
   const [producList, setProductList] = useState<Article[]>([]);
 
 
   const location = useLocation();
-  useEffect(() => {
-    getProducts(searchText).then(products => setProductList(products));
-  }, []);
 
   useEffect(()=>{
     const q=new URLSearchParams(location.search).get('q');
@@ -27,13 +24,12 @@ const Home: React.FC = () => {
   },[location]);
 
 
-
   const filter = (e: React.KeyboardEvent<HTMLIonSearchbarElement>) => {
 
     if (e.key != 'Enter') {
       return;
     }
-    getProducts(searchText ? searchText : '').then(products => setProductList(products));
+    window.location.href = "/home?q="+searchText
   };
 
 
@@ -58,7 +54,7 @@ const Home: React.FC = () => {
       </IonContent >
 
       { <IonTabBar slot="bottom">
-        <IonTabButton tab="home" href="/home/?q=Software companies">
+        <IonTabButton tab="home" href="/home">
           <IonIcon icon={home} />
           <IonLabel>Home</IonLabel>
         </IonTabButton>
