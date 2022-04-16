@@ -47,5 +47,5 @@ amplifytools.xcconfig
 .secret-*
 **.sample
 #amplify-do-not-edit-end
-# src
+#src
 src/Firebase.tsx
