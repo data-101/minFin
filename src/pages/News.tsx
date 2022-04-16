@@ -6,6 +6,7 @@ import { ProductList } from '../components/ProductList';
 import { getProducts } from '../store/ProductStore';
 import './Home.css';
 import { Article } from '../model/Article';
+import { useStore } from '../App';
 
 const News: React.FC = () => {
     const [searchText, setSearchText] = useState('Trending');
@@ -45,10 +46,11 @@ const News: React.FC = () => {
           <IonIcon icon={home} />
           <IonLabel>Home</IonLabel>
         </IonTabButton>
+        {(useStore.getState().signedInVal === 'true') &&
         <IonTabButton tab="portfolio" href="/list">
           <IonIcon icon={albums} />
           <IonLabel>Portfolio</IonLabel>
-        </IonTabButton>
+        </IonTabButton>}
         <IonTabButton tab="news" href="/news">
           <IonIcon icon={book} />
           <IonLabel>News</IonLabel>

@@ -57,10 +57,10 @@ const Login: React.FC = () => {
           <IonIcon icon={home} />
           <IonLabel>Home</IonLabel>
         </IonTabButton>
-        <IonTabButton tab="portfolio" href="/list">
+        {/* <IonTabButton tab="portfolio" href="/list">
           <IonIcon icon={albums} />
           <IonLabel>Portfolio</IonLabel>
-        </IonTabButton>
+        </IonTabButton> */}
         <IonTabButton tab="news" href="/news">
           <IonIcon icon={book} />
           <IonLabel>News</IonLabel>

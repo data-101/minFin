@@ -42,7 +42,7 @@ const Home: React.FC = () => {
       <IonHeader>
         <IonToolbar>
           <IonTitle>MinFin</IonTitle>
-          {(useStore.getState().signedInVal === 'false') && <IonButton slot='end' href='/login'>Sign-in</IonButton>}
+          {(useStore.getState().signedInVal === 'false')  && <IonButton slot='end' href='/login'>Sign-in</IonButton>}
           {(useStore.getState().signedInVal === 'true') && <IonButton slot='end' onClick={logout} >Log-out</IonButton>}
         </IonToolbar>
       </IonHeader>
@@ -62,10 +62,11 @@ const Home: React.FC = () => {
           <IonIcon icon={home} />
           <IonLabel>Home</IonLabel>
         </IonTabButton>
+        {(useStore.getState().signedInVal === 'true') &&
         <IonTabButton tab="portfolio" href="/list">
           <IonIcon icon={albums} />
           <IonLabel>Portfolio</IonLabel>
-        </IonTabButton>
+        </IonTabButton>}
         <IonTabButton tab="news" href="/news">
           <IonIcon icon={book} />
           <IonLabel>News</IonLabel>
