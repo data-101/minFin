@@ -15,19 +15,20 @@ import { useStore } from "../App"
 const Home: React.FC = () => {
   const [searchText, setSearchText] = useState<string>('Software companies');
   const [producList, setProductList] = useState<Article[]>([]);
-
+  const {setSignedIn} = useStore();
   const location = useLocation();
-  // const [signedIn, setSignedIn] = useState<Boolean>(false);
+
   useEffect(()=>{
     const q=new URLSearchParams(location.search).get('q');
     getProducts(q?q:'').then(products => setProductList(products));
-    // retStatus().then(res => setSignedIn(res));
-    // console.log(signedIn,"hola");
   },[location]);
 
+  const logout=()=>{
+    setSignedIn('false')
+    window.location.href = "/home?q=Software companies"
+  }
 
   const filter = (e: React.KeyboardEvent<HTMLIonSearchbarElement>) => {
-
     if (e.key != 'Enter') {
       return;
     }
@@ -41,8 +42,8 @@ const Home: React.FC = () => {
       <IonHeader>
         <IonToolbar>
           <IonTitle>MinFin</IonTitle>
-          {!useStore.getState().signedInVal && <IonButton slot='end' href='/login'>Sign-in</IonButton>}
-          {useStore.getState().signedInVal && <IonButton slot='end' href='/login'>Log-out</IonButton>}
+          {(useStore.getState().signedInVal === 'false') && <IonButton slot='end' href='/login'>Sign-in</IonButton>}
+          {(useStore.getState().signedInVal === 'true') && <IonButton slot='end' onClick={logout} >Log-out</IonButton>}
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
@@ -71,9 +72,6 @@ const Home: React.FC = () => {
         </IonTabButton>
       </IonTabBar> }
     </IonPage >
-
-
-
   );
 };
 
