@@ -30,12 +30,33 @@ import create from 'zustand'
 import { Article } from './model/Article';
 
 export const useStore = create((set:any) => ({
+  name: localStorage.getItem('name'),
+  portfolio: localStorage.getItem('portfolio'),
+  subscribed: localStorage.getItem('subscribed'),
   signedInVal: localStorage.getItem('signedIn'),
   products: [] as Article[],
   setSignedIn:(val:string)=> set(() => {
       localStorage.setItem('signedIn', val)
       return val;
-    })
+    }),
+  setName:(val:string)=> set(() => {
+      localStorage.setItem('name', val)
+      return val;
+    }),
+  setPortfolio:(val:string)=> set(() => {
+      localStorage.setItem('portfolio', val)
+      return val;
+    }),
+  addToPortfolio:(val:string)=> set(() => {
+      var x = useStore.getState().portfolio
+      x = x + "," + val
+      localStorage.setItem('portfolio', x)
+      return val;
+    }),
+  setSubscribed:(val:string)=> set(() => {
+      localStorage.setItem('subscribed', val)
+      return val;
+    }),
 }))
 
 setupIonicReact();

@@ -11,6 +11,7 @@ import { callOutline, callSharp, logoTwitter, logoGithub, logoInstagram, shareOu
 import { Product } from '../model/Product';
 import { getProductById } from '../store/ProductStore';
 import { Article } from '../model/Article';
+import { useStore } from "../App"
 
 
 interface OwnProps extends RouteComponentProps {
@@ -32,6 +33,7 @@ const ProductPage: React.FC<ProductPageProp> = ({ match }) => {
     const [showActionSheet, setShowActionSheet] = useState(false);
     const [actionSheetButtons, setActionSheetButtons] = useState<ActionSheetButton[]>([]);
     const [actionSheetHeader, setActionSheetHeader] = useState('');
+    const {addToPortfolio} = useStore();
 
     const [product, setProduct] = useState<Article>({ id: '1', title: '', summary: '',  date: 'wifi' });
 
@@ -72,6 +74,10 @@ const ProductPage: React.FC<ProductPageProp> = ({ match }) => {
         window.open(url, '_blank');
     }
 
+    const addCompany=()=>{
+        addToPortfolio(product.title)
+    }
+
     if (!match) {
         return <div>product not found</div>
     }
@@ -95,7 +101,7 @@ const ProductPage: React.FC<ProductPageProp> = ({ match }) => {
                 <div className="ion-padding product-detail">
                     <p> {product.summary}</p>
                     <p>Source: <a target="_blank" rel="noopener noreferrer" href={product.link}>{product.link}</a></p>
-                    <hr />
+                    <IonButton slot='end' onClick={addCompany} >Follow</IonButton>
 
                 </div>
             </IonContent>
