@@ -89,11 +89,12 @@ const ProductPage: React.FC<ProductPageProp> = ({ match }) => {
 
                 <div className="product-background" style={{flex:1 ,width: undefined, height: undefined, backgroundImage: `url(${product.image})`}}>
                     <h2 style={{backgroundColor: "#171717"}}>
-                    <a target="_blank" rel="noopener noreferrer" href={product.link}>{product.title}</a></h2>
+                    <a>{product.title}</a></h2>
                 </div>
 
                 <div className="ion-padding product-detail">
                     <p> {product.summary}</p>
+                    <p>Source: <a target="_blank" rel="noopener noreferrer" href={product.link}>{product.link}</a></p>
                     <hr />
 
                 </div>

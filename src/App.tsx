@@ -26,6 +26,17 @@ import Test from './pages/Test';
 import ItemList from './pages/ItemList';
 import Login from './pages/Login';
 import News from './pages/News';
+import create from 'zustand'
+import { Article } from './model/Article';
+
+export const useStore = create((set:any) => ({
+  signedInVal: localStorage.getItem('signedIn'),
+  products: [] as Article[],
+  setSignedIn:(val:string)=> set(() => {
+      localStorage.setItem('signedIn', val)
+      return val;
+    })
+}))
 
 setupIonicReact();
 

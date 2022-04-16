@@ -1,4 +1,5 @@
-import { IonButton, IonContent, IonHeader, IonIcon, IonLabel, IonPage, IonSearchbar, IonTabBar, IonTabButton, IonTabs, IonTitle, IonToolbar } from '@ionic/react';
+import { IonButton, IonContent, IonHeader, IonIcon, IonSegment,
+  IonSegmentButton,IonLabel, IonPage, IonSearchbar, IonTabBar, IonTabButton, IonTabs, IonTitle, IonToolbar } from '@ionic/react';
 import { calendar, people, informationCircle, home, book, albums } from 'ionicons/icons';
 import { useEffect, useState } from 'react';
 import ExploreContainer from '../components/ExploreContainer';
@@ -9,18 +10,19 @@ import './Home.css';
 import { Auth } from 'aws-amplify';
 import { Article } from '../model/Article';
 import { useLocation } from 'react-router-dom';
-
+import { useStore } from "../App"
 
 const Home: React.FC = () => {
   const [searchText, setSearchText] = useState<string>('Software companies');
   const [producList, setProductList] = useState<Article[]>([]);
 
-
   const location = useLocation();
-
+  // const [signedIn, setSignedIn] = useState<Boolean>(false);
   useEffect(()=>{
     const q=new URLSearchParams(location.search).get('q');
     getProducts(q?q:'').then(products => setProductList(products));
+    // retStatus().then(res => setSignedIn(res));
+    // console.log(signedIn,"hola");
   },[location]);
 
 
@@ -39,7 +41,8 @@ const Home: React.FC = () => {
       <IonHeader>
         <IonToolbar>
           <IonTitle>MinFin</IonTitle>
-          <IonButton slot='end' href='/login'>Sign-in</IonButton>
+          {!useStore.getState().signedInVal && <IonButton slot='end' href='/login'>Sign-in</IonButton>}
+          {useStore.getState().signedInVal && <IonButton slot='end' href='/login'>Log-out</IonButton>}
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>

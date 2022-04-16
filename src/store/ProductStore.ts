@@ -7,13 +7,7 @@ import { FreeNewsResponse } from "../model/FreeNewsResponse";
 import { GoogleNewsResponse } from "../model/GoogleNewsResponse";
 import { UserPortfolio } from "../model/UserPortfolio";
 import { alertCircle } from "ionicons/icons";
-
-
-import create from 'zustand'
-
-const useStore = create(() => ({
-    products: [] as Article[]
-}))
+import { useStore } from "../App"
 
 
 const products: Article[] = [
@@ -70,7 +64,6 @@ export const getProducts = async (searchText: string = ''): Promise<Article[]> =
     };
 
     const hello = await axios.request<FreeNewsResponse>(options).then(function (response: AxiosResponse<FreeNewsResponse>) {
-        // console.log(response.data);
         const art: Article[] = response.data.articles.map<Article>(value => ({
             "title": value.title,
             "date": value.published_date,
@@ -86,64 +79,8 @@ export const getProducts = async (searchText: string = ''): Promise<Article[]> =
 
     useStore.setState({ products: hello })
     return hello;
-    // return products.filter((product) => {
-    //     return product.name.toLowerCase().startsWith(searchText.toLowerCase());
-    // });
 }
 
 export const getProductById = async (id: string): Promise<Article> => {
-    // console.log(products);
-    // return products.filter(p => p.id === id)[0]
     return useStore.getState().products.filter(p => p.id === id)[0];
 }
-
-// export const getPortfolio = async (searchText: string = ''): Promise<Article> => {
-//     // export const getProducts = async (searchText: string = ''): Promise<Article[]> => {
-//     // console.log(searchText)
-//     if (searchText === '') {
-//         return products;
-//     }
-//     // var request = require('request');
-//     // var request = require('request');
-//     var headers = {
-//         'Cookie': 'session=eyJ1c2VyIjoidXNlciJ9.YkeZcQ.naM5IDGcq8jDai5-H2M1hP5maPs'
-//     };
-
-//     var options = {
-//         url: 'passwords-ssh.id0.one:8080/portfolio',
-//         headers: headers
-//     };
-
-//     // function callback(response) {
-//     //     if (!error && response.statusCode == 200) {
-//     //         return response
-//     //     }
-//     // }
-//     // axios.request(options);
-
-//     const hello = await axios.request<FreeNewsResponse>(options).then(function (response: AxiosResponse<FreeNewsResponse>) {
-//             // console.log(response.data);
-//             const art: Article[] = response.data.articles.map<Article>(value => ({
-//                 "title": value.title,
-//                 "date": value.published_date,
-//                 "summary": value.summary,
-//                 "id": value._id,
-//                 "image": value.media
-//             }));
-//             return art;
-//         }).catch(function (error: any) {
-//             return [] as Article[];
-//         });
-
-//     // const hello = await axios.request<UserPortfolio>(options).then(function (response: AxiosResponse<UserPortfolio>) {
-//     //     const art: UserPortfolio = response;
-//     //     // console.log(response.data);
-//     //     return art;
-//     // });
-//     // const hei: Article[] = hello.map<Article>
-//     // useStore.setState({ products: hello })
-//     return hello;
-//     // return products.filter((product) => {
-//     //     return product.name.toLowerCase().startsWith(searchText.toLowerCase());
-//     // });
-// }

@@ -1,15 +1,33 @@
-import React, { useState } from 'react';
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonInput, IonItem, IonLabel, IonList, IonItemDivider, IonButton } from '@ionic/react';
-import { Auth } from 'aws-amplify';
+import React, { useEffect, useState } from 'react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonInput, IonItem, IonLabel, IonList, IonItemDivider,IonIcon, IonButton, IonTabBar, IonTabButton } from '@ionic/react';
+import { calendar, people, informationCircle, home, book, albums } from 'ionicons/icons';
+import { useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router';
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { useStore } from "../App"
+import { appAuth} from "../Firebase"
+
+const Auth = getAuth(appAuth);
 
 const Login: React.FC = () => {
-
+  const {setSignedIn} = useStore();
   const [username, setUsername] = useState<string>();
   const [password, setPasword] = useState<string>();
-  const [signedIn,setSignedIn]= useState<boolean>(false);
+
 
   const login=()=>{
-    Auth.signIn(username!, password).then(res=> {console.log(res);setSignedIn(true)}).catch(err=>console.log(err));
+    signInWithEmailAndPassword(Auth, username!, password!)
+  .then(userCredential => {
+    console.log(userCredential);
+    setSignedIn('true')
+    const user = userCredential.user;
+    console.log(user)
+    window.location.href = "/home?q=Software companies"
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+  });
   }
 
   return (
@@ -20,6 +38,7 @@ const Login: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent>
+        { !useStore.getState().signedInVal &&
         <IonList>
           {/* <IonItemDivider>Default Input with Placeholder</IonItemDivider> */}
           <IonItem>
@@ -29,11 +48,27 @@ const Login: React.FC = () => {
             <IonInput value={password} placeholder="Enter Password" type="password" onIonChange={e => setPasword(e.detail.value!)}></IonInput>
           </IonItem>
         <IonButton onClick={login}>Submit</IonButton>
-         {signedIn && <p>Congrats You Have Successfully Signed In!</p>}
         </IonList>
+        }
+        {useStore.getState().signedInVal && <p>Congrats You Have Successfully Signed In!</p>}
       </IonContent>
-    </IonPage>
+      { <IonTabBar slot="bottom">
+        <IonTabButton tab="home" href="/home">
+          <IonIcon icon={home} />
+          <IonLabel>Home</IonLabel>
+        </IonTabButton>
+        <IonTabButton tab="portfolio" href="/list">
+          <IonIcon icon={albums} />
+          <IonLabel>Portfolio</IonLabel>
+        </IonTabButton>
+        <IonTabButton tab="news" href="/news">
+          <IonIcon icon={book} />
+          <IonLabel>News</IonLabel>
+        </IonTabButton>
+      </IonTabBar> }
+    </IonPage >
   );
 };
+
 
 export default Login;
