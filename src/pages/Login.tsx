@@ -14,7 +14,6 @@ const Login: React.FC = () => {
   const [username, setUsername] = useState<string>();
   const [password, setPasword] = useState<string>();
 
-
   const login=()=>{
     signInWithEmailAndPassword(Auth, username!, password!)
   .then(userCredential => {
@@ -38,7 +37,7 @@ const Login: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent>
-        { (useStore.getState().signedInVal === 'false') &&
+        { (useStore.getState().signedInVal === 'false' || useStore.getState().signedInVal === null) &&
         <IonList>
           {/* <IonItemDivider>Default Input with Placeholder</IonItemDivider> */}
           <IonItem>
@@ -52,20 +51,20 @@ const Login: React.FC = () => {
         }
         {(useStore.getState().signedInVal === 'true') && <p>Congrats You Have Successfully Signed In!</p>}
       </IonContent>
-      { <IonTabBar slot="bottom">
+      {/* { <IonTabBar slot="bottom">
         <IonTabButton tab="home" href="/home">
           <IonIcon icon={home} />
           <IonLabel>Home</IonLabel>
         </IonTabButton>
-        {/* <IonTabButton tab="portfolio" href="/list">
+        <IonTabButton tab="portfolio" href="/list">
           <IonIcon icon={albums} />
           <IonLabel>Portfolio</IonLabel>
-        </IonTabButton> */}
+        </IonTabButton>
         <IonTabButton tab="news" href="/news">
           <IonIcon icon={book} />
           <IonLabel>News</IonLabel>
         </IonTabButton>
-      </IonTabBar> }
+      </IonTabBar> } */}
     </IonPage >
   );
 };

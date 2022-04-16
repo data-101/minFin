@@ -42,7 +42,7 @@ const Home: React.FC = () => {
       <IonHeader>
         <IonToolbar>
           <IonTitle>MinFin</IonTitle>
-          {(useStore.getState().signedInVal === 'false')  && <IonButton slot='end' href='/login'>Sign-in</IonButton>}
+          {(useStore.getState().signedInVal === 'false' || useStore.getState().signedInVal === null)  && <IonButton slot='end' href='/login'>Sign-in</IonButton>}
           {(useStore.getState().signedInVal === 'true') && <IonButton slot='end' onClick={logout} >Log-out</IonButton>}
         </IonToolbar>
       </IonHeader>
