@@ -16,6 +16,7 @@ const Home: React.FC = () => {
   const [searchText, setSearchText] = useState<string>('Software companies');
   const [producList, setProductList] = useState<Article[]>([]);
   const {setSignedIn} = useStore();
+  const {setcompanyName} = useStore();
   const location = useLocation();
 
   useEffect(()=>{
@@ -33,8 +34,9 @@ const Home: React.FC = () => {
       return;
     }
     window.location.href = "/home?q="+searchText
+    setcompanyName(searchText)
   };
-
+  console.log(useStore.getState().portfolio)
 
   return (
 

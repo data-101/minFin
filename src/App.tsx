@@ -34,6 +34,7 @@ export const useStore = create((set:any) => ({
   portfolio: localStorage.getItem('portfolio'),
   subscribed: localStorage.getItem('subscribed'),
   signedInVal: localStorage.getItem('signedIn'),
+  companyName: localStorage.getItem('companyName'),
   products: [] as Article[],
   setSignedIn:(val:string)=> set(() => {
       localStorage.setItem('signedIn', val)
@@ -44,17 +45,27 @@ export const useStore = create((set:any) => ({
       return val;
     }),
   setPortfolio:(val:string)=> set(() => {
+      val = val.toLowerCase()
       localStorage.setItem('portfolio', val)
       return val;
     }),
-  addToPortfolio:(val:string)=> set(() => {
-      var x = useStore.getState().portfolio
+  addToPortfolio:(val='')=> set(() => {
+      val = val.toLowerCase()
+      var x = ""
+      x = String(useStore.getState().portfolio)
+      if(x.split(',').includes(val)){
+        return val
+      }
       x = x + "," + val
       localStorage.setItem('portfolio', x)
-      return val;
+      return x;
     }),
   setSubscribed:(val:string)=> set(() => {
       localStorage.setItem('subscribed', val)
+      return val;
+    }),
+  setcompanyName:(val:string)=> set(() => {
+      localStorage.setItem('companyName', val)
       return val;
     }),
 }))

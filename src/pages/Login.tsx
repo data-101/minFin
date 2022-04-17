@@ -10,7 +10,7 @@ import { appAuth} from "../Firebase"
 const Auth = getAuth(appAuth);
 
 const Login: React.FC = () => {
-  const {setSignedIn} = useStore();
+  const {setSignedIn, setPortfolio} = useStore();
   const [username, setUsername] = useState<string>();
   const [password, setPasword] = useState<string>();
 
@@ -22,6 +22,7 @@ const Login: React.FC = () => {
     const user = userCredential.user;
     console.log(user)
     window.location.href = "/home?q=Software companies"
+    setPortfolio("")
   })
   .catch((error) => {
     const errorCode = error.code;

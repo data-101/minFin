@@ -75,7 +75,7 @@ const ProductPage: React.FC<ProductPageProp> = ({ match }) => {
     }
 
     const addCompany=()=>{
-        addToPortfolio(product.title)
+        addToPortfolio(String(useStore.getState().companyName))
     }
 
     if (!match) {
