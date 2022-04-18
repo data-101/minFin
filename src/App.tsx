@@ -49,6 +49,22 @@ export const useStore = create((set:any) => ({
       localStorage.setItem('portfolio', val)
       return val;
     }),
+  deletePortfolio:(val:string)=> set(() => {
+      val = val.toLowerCase()
+      var x = ""
+      x = String(useStore.getState().portfolio)
+      var y = x.split(',')
+      if(y.includes(val)){
+        const index = y.indexOf(val, 0);
+        y.splice(index, 1);
+        var ret = ""
+        for (var i of y){
+          ret += i + ','
+        }
+        localStorage.setItem('portfolio', ret)
+      }
+      return val;
+    }),
   addToPortfolio:(val='')=> set(() => {
       val = val.toLowerCase()
       var x = ""

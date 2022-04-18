@@ -35,6 +35,7 @@ const Home: React.FC = () => {
     }
     window.location.href = "/home?q="+searchText
     setcompanyName(searchText)
+
   };
   console.log(useStore.getState().portfolio)
 

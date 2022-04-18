@@ -7,22 +7,21 @@ import { getProducts } from '../store/ProductStore';
 import './Home.css';
 import { Article } from '../model/Article';
 import { PortfolioList } from '../components/PortfolioList';
+import { useStore } from "../App"
+import { stat } from 'fs';
 
 const ItemList: React.FC = () => {
     const [searchText, setSearchText] = useState('');
-    const [producList, setProductList] = useState<Article[]>([]);
+    const [producList, setProductList] = useState<string[]>([]);
     useEffect(() => {
-        getProducts(searchText).then(products => setProductList(products));
+      // const portfolioLs = useStore.getState().signedInVal
+      // getProducts(searchText).then(products => setProductList(products));
       }, []);
-    
-    const filter = (e: React.KeyboardEvent<HTMLIonSearchbarElement>) => {
-
-        if (e.key != 'Enter') {
-          return;
-        }
-        getProducts(searchText).then(products => setProductList(products));
-      };
-      
+    // const updateList = ()=>{
+    //   setProductList(String(useStore.getState().portfolio).split(',')); 
+    // }
+    // useStore.s(state => state.portfolio, updateList)
+    // useStore.subscribe(updateList)
     return (
         <IonPage>
             <IonHeader>
@@ -38,11 +37,11 @@ const ItemList: React.FC = () => {
         </IonHeader>
         <ExploreContainer />
         {/* <IonSearchbar inputmode="search" onIonChange={e => setSearchText(e.detail.value!)} onKeyPress={filter}></IonSearchbar> */}
-        < PortfolioList products={producList} />
+        < PortfolioList products={String(useStore.getState().portfolio).split(',')} />
       </IonContent >
 
         { <IonTabBar slot="bottom">
-        <IonTabButton tab="home" href="/home">
+        <IonTabButton tab="home" href="/home?q=Software companies">
           <IonIcon icon={home} />
           <IonLabel>Home</IonLabel>
         </IonTabButton>
