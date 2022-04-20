@@ -21,7 +21,7 @@ const Home: React.FC = () => {
 
   useEffect(()=>{
     const q=new URLSearchParams(location.search).get('q');
-    getProducts(q?q:'').then(products => setProductList(products));
+    getProducts(q?q:searchText).then(products => setProductList(products));
   },[location]);
 
   const logout=()=>{
@@ -59,22 +59,6 @@ const Home: React.FC = () => {
         <IonSearchbar inputmode="search" onIonChange={e => setSearchText(e.detail.value!)} onKeyPress={filter}></IonSearchbar>
         < ProductList products={producList} />
       </IonContent >
-
-      { <IonTabBar slot="bottom">
-        <IonTabButton tab="home" href="/home">
-          <IonIcon icon={home} />
-          <IonLabel>Home</IonLabel>
-        </IonTabButton>
-        {(useStore.getState().signedInVal === 'true') &&
-        <IonTabButton tab="portfolio" href="/list">
-          <IonIcon icon={albums} />
-          <IonLabel>Portfolio</IonLabel>
-        </IonTabButton>}
-        <IonTabButton tab="news" href="/news">
-          <IonIcon icon={book} />
-          <IonLabel>News</IonLabel>
-        </IonTabButton>
-      </IonTabBar> }
     </IonPage >
   );
 };

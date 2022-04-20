@@ -71,20 +71,6 @@ const Login: React.FC = () => {
         <IonIcon icon={logoGoogle} onClick={googleLogin} size="large"/>
         {(useStore.getState().signedInVal === 'true') && <p>Congrats You Have Successfully Signed In!</p>}
       </IonContent>
-      {/* { <IonTabBar slot="bottom">
-        <IonTabButton tab="home" href="/home">
-          <IonIcon icon={home} />
-          <IonLabel>Home</IonLabel>
-        </IonTabButton>
-        <IonTabButton tab="portfolio" href="/list">
-          <IonIcon icon={albums} />
-          <IonLabel>Portfolio</IonLabel>
-        </IonTabButton>
-        <IonTabButton tab="news" href="/news">
-          <IonIcon icon={book} />
-          <IonLabel>News</IonLabel>
-        </IonTabButton>
-      </IonTabBar> } */}
     </IonPage >
   );
 };

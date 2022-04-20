@@ -1,5 +1,5 @@
 import { Redirect, Route } from 'react-router-dom';
-import { IonApp, IonRouterOutlet, setupIonicReact } from '@ionic/react';
+import { IonApp, IonIcon, IonLabel, IonRouterOutlet, IonTabBar, IonTabButton, IonTabs, setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import Home from './pages/Home';
 
@@ -23,11 +23,12 @@ import '@ionic/react/css/display.css';
 import './theme/variables.css';
 import ProductPage from './pages/ProductPage';
 import Test from './pages/Test';
-import ItemList from './pages/ItemList';
+import Portfolio from './pages/Portfolio';
 import Login from './pages/Login';
 import News from './pages/News';
 import create from 'zustand'
 import { Article } from './model/Article';
+import { home, albums, book } from 'ionicons/icons';
 
 export const useStore = create((set:any) => ({
   name: localStorage.getItem('name'),
@@ -91,6 +92,7 @@ setupIonicReact();
 const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
+      <IonTabs>
       <IonRouterOutlet>
         <Route exact path="/home">
           <Home />
@@ -100,7 +102,7 @@ const App: React.FC = () => (
           <Test />
         </Route>
         <Route exact path="/list">
-          <ItemList />
+          <Portfolio />
         </Route>
         <Route exact path="/news">
           <News />
@@ -112,6 +114,22 @@ const App: React.FC = () => (
           <Redirect to="/home?q=Software companies" />
         </Route>
       </IonRouterOutlet>
+      <IonTabBar slot="bottom">
+        <IonTabButton tab="home" href="/home">
+          <IonIcon icon={home} />
+          <IonLabel>Home</IonLabel>
+        </IonTabButton>
+        {(useStore.getState().signedInVal === 'true') &&
+        <IonTabButton tab="portfolio" href="/list">
+          <IonIcon icon={albums} />
+          <IonLabel>Portfolio</IonLabel>
+        </IonTabButton>}
+        <IonTabButton tab="news" href='/news'>
+          <IonIcon icon={book} />
+          <IonLabel>News</IonLabel>
+        </IonTabButton>
+      </IonTabBar> 
+      </IonTabs>
     </IonReactRouter>
   </IonApp>
 );
