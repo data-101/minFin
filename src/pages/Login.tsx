@@ -22,7 +22,7 @@ const Login: React.FC = () => {
     const user = userCredential.user;
     console.log(user)
     window.location.href = "/home?q=Software companies"
-    setPortfolio("")
+    // setPortfolio([])
   })
   .catch((error) => {
     const errorCode = error.code;
@@ -38,7 +38,7 @@ const Login: React.FC = () => {
       const user = userCredential.user;
       console.log(user)
       window.location.href = "/home?q=Software companies"
-      setPortfolio("")
+      // setPortfolio([])
     })
     .catch((error) => {
       const errorCode = error.code;

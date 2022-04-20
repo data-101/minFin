@@ -14,7 +14,7 @@ const Portfolio: React.FC = () => {
     const [producList, setProductList] = useState<string[]>([]);
 
       useIonViewWillEnter(()=>{
-        setProductList(String(localStorage.getItem('portfolio')).split(','));
+        setProductList(JSON.parse(String(localStorage.getItem('portfolio'))));
       })
 
     return (

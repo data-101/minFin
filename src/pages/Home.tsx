@@ -37,7 +37,6 @@ const Home: React.FC = () => {
     setcompanyName(searchText)
 
   };
-  console.log(useStore.getState().portfolio)
 
   return (
 

@@ -1,91 +1,103 @@
-import { Redirect, Route } from 'react-router-dom';
-import { IonApp, IonIcon, IonLabel, IonRouterOutlet, IonTabBar, IonTabButton, IonTabs, setupIonicReact } from '@ionic/react';
-import { IonReactRouter } from '@ionic/react-router';
-import Home from './pages/Home';
+import { Redirect, Route } from "react-router-dom";
+import {
+  IonApp,
+  IonIcon,
+  IonLabel,
+  IonRouterOutlet,
+  IonTabBar,
+  IonTabButton,
+  IonTabs,
+  setupIonicReact,
+} from "@ionic/react";
+import { IonReactRouter } from "@ionic/react-router";
+import Home from "./pages/Home";
 
 /* Core CSS required for Ionic components to work properly */
-import '@ionic/react/css/core.css';
+import "@ionic/react/css/core.css";
 
 /* Basic CSS for apps built with Ionic */
-import '@ionic/react/css/normalize.css';
-import '@ionic/react/css/structure.css';
-import '@ionic/react/css/typography.css';
+import "@ionic/react/css/normalize.css";
+import "@ionic/react/css/structure.css";
+import "@ionic/react/css/typography.css";
 
 /* Optional CSS utils that can be commented out */
-import '@ionic/react/css/padding.css';
-import '@ionic/react/css/float-elements.css';
-import '@ionic/react/css/text-alignment.css';
-import '@ionic/react/css/text-transformation.css';
-import '@ionic/react/css/flex-utils.css';
-import '@ionic/react/css/display.css';
+import "@ionic/react/css/padding.css";
+import "@ionic/react/css/float-elements.css";
+import "@ionic/react/css/text-alignment.css";
+import "@ionic/react/css/text-transformation.css";
+import "@ionic/react/css/flex-utils.css";
+import "@ionic/react/css/display.css";
 
 /* Theme variables */
-import './theme/variables.css';
-import ProductPage from './pages/ProductPage';
-import Test from './pages/Test';
-import Portfolio from './pages/Portfolio';
-import Login from './pages/Login';
-import News from './pages/News';
-import create from 'zustand'
-import { Article } from './model/Article';
-import { home, albums, book } from 'ionicons/icons';
+import "./theme/variables.css";
+import ProductPage from "./pages/ProductPage";
+import Test from "./pages/Test";
+import Portfolio from "./pages/Portfolio";
+import Login from "./pages/Login";
+import News from "./pages/News";
+import create from "zustand";
+import { Article } from "./model/Article";
+import { home, albums, book } from "ionicons/icons";
 
-export const useStore = create((set:any) => ({
-  name: localStorage.getItem('name'),
-  portfolio: localStorage.getItem('portfolio'),
-  subscribed: localStorage.getItem('subscribed'),
-  signedInVal: localStorage.getItem('signedIn'),
-  companyName: localStorage.getItem('companyName'),
+interface AppState {
+  name: string;
+  portfolio: string[];
+  subscribed: string;
+  signedInVal: string;
+  products: Article[];
+  companyName: string;
+  setSignedIn: (val: string) => void;
+  setName: (val: string) => void;
+  setPortfolio: (val: []) => void;
+  deletePortfolio: (val: string) => void;
+  addToPortfolio: (val: string) => void;
+  setSubscribed: (val: string) => void;
+  setcompanyName: (val: string) => void;
+}
+
+export const useStore = create<AppState>((set) => ({
+  name: String(localStorage.getItem("name")),
+  portfolio: JSON.parse(String(localStorage.getItem("portfolio"))),
+  subscribed: String(localStorage.getItem("subscribed")),
+  signedInVal: String(localStorage.getItem("signedIn")),
+  companyName: String(localStorage.getItem("companyName")),
   products: [] as Article[],
-  setSignedIn:(val:string)=> set(() => {
-      localStorage.setItem('signedIn', val)
-      return val;
+  setSignedIn: (val: string) =>
+    set((state) => {
+      localStorage.setItem("signedIn", val);
     }),
-  setName:(val:string)=> set(() => {
-      localStorage.setItem('name', val)
-      return val;
+  setName: (val: string) =>
+    set(() => {
+      localStorage.setItem("name", val);
     }),
-  setPortfolio:(val:string)=> set(() => {
-      val = val.toLowerCase()
-      localStorage.setItem('portfolio', val)
-      return val;
+  setPortfolio: (val: []) =>
+    set(() => {
+      localStorage.setItem("portfolio", JSON.stringify(val));
     }),
-  deletePortfolio:(val:string)=> set(() => {
-      val = val.toLowerCase()
-      var x = ""
-      x = String(useStore.getState().portfolio)
-      var y = x.split(',')
-      if(y.includes(val)){
-        const index = y.indexOf(val, 0);
-        y.splice(index, 1);
-        var ret = ""
-        for (var i of y){
-          ret += i + ','
-        }
-        localStorage.setItem('portfolio', ret)
-      }
-      return val;
+  deletePortfolio: (val: string) =>
+    set((state) => {
+      val = val.toLowerCase();
+      var x = state.portfolio;
+      x.splice(x.indexOf(val), 1);
+      localStorage.setItem("portfolio", JSON.stringify(x));
     }),
-  addToPortfolio:(val='')=> set(() => {
-      val = val.toLowerCase()
-      var x = ""
-      x = String(useStore.getState().portfolio)
-      if(x.split(',').includes(val)){
-        return val
-      }
-      x = x + "," + val
-      localStorage.setItem('portfolio', x)
-      return x;
+  addToPortfolio: (val = "") =>
+    set((state) => {
+      val = val.toLowerCase();
+      console.log(state.portfolio);
+      var x = state.portfolio;
+      x.push(val);
+      localStorage.setItem("portfolio", JSON.stringify(x));
     }),
-  setSubscribed:(val:string)=> set(() => {
-      localStorage.setItem('subscribed', val)
-      return val;
+  setSubscribed: (val: string) =>
+    set(() => {
+      localStorage.setItem("subscribed", val);
     }),
-  setcompanyName:(val:string)=> set(() => {
-      localStorage.setItem('companyName', val)
-      return val;
+  setcompanyName: (val: string) =>
+    set(() => {
+      localStorage.setItem("companyName", val);
     }),
-}))
+}));
 
 setupIonicReact();
 
@@ -93,42 +105,43 @@ const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
       <IonTabs>
-      <IonRouterOutlet>
-        <Route exact path="/home">
-          <Home />
-        </Route>
-        <Route path="/product/:id" component={ProductPage} exact={true} />
-        <Route exact path="/test">
-          <Test />
-        </Route>
-        <Route exact path="/list">
-          <Portfolio />
-        </Route>
-        <Route exact path="/news">
-          <News />
-        </Route>
-        <Route exact path="/login">
-          <Login />
-        </Route>
-        <Route exact path="/">
-          <Redirect to="/home?q=Software companies" />
-        </Route>
-      </IonRouterOutlet>
-      <IonTabBar slot="bottom">
-        <IonTabButton tab="home" href="/home">
-          <IonIcon icon={home} />
-          <IonLabel>Home</IonLabel>
-        </IonTabButton>
-        {(useStore.getState().signedInVal === 'true') &&
-        <IonTabButton tab="portfolio" href="/list">
-          <IonIcon icon={albums} />
-          <IonLabel>Portfolio</IonLabel>
-        </IonTabButton>}
-        <IonTabButton tab="news" href='/news'>
-          <IonIcon icon={book} />
-          <IonLabel>News</IonLabel>
-        </IonTabButton>
-      </IonTabBar> 
+        <IonRouterOutlet>
+          <Route exact path="/home">
+            <Home />
+          </Route>
+          <Route path="/product/:id" component={ProductPage} exact={true} />
+          <Route exact path="/test">
+            <Test />
+          </Route>
+          <Route exact path="/list">
+            <Portfolio />
+          </Route>
+          <Route exact path="/news">
+            <News />
+          </Route>
+          <Route exact path="/login">
+            <Login />
+          </Route>
+          <Route exact path="/">
+            <Redirect to="/home?q=Software companies" />
+          </Route>
+        </IonRouterOutlet>
+        <IonTabBar slot="bottom">
+          <IonTabButton tab="home" href="/home">
+            <IonIcon icon={home} />
+            <IonLabel>Home</IonLabel>
+          </IonTabButton>
+          {useStore.getState().signedInVal === "true" && (
+            <IonTabButton tab="portfolio" href="/list">
+              <IonIcon icon={albums} />
+              <IonLabel>Portfolio</IonLabel>
+            </IonTabButton>
+          )}
+          <IonTabButton tab="news" href="/news">
+            <IonIcon icon={book} />
+            <IonLabel>News</IonLabel>
+          </IonTabButton>
+        </IonTabBar>
       </IonTabs>
     </IonReactRouter>
   </IonApp>
