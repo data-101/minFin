@@ -37,12 +37,13 @@ import Login from "./pages/Login";
 import News from "./pages/News";
 import create from "zustand";
 import { Article } from "./model/Article";
-import { home, albums, book } from "ionicons/icons";
+import { home, albums, book, card } from "ionicons/icons";
+import Subscription from "./pages/Subscription";
 
 interface AppState {
   name: string;
   portfolio: string[];
-  subscribed: string;
+  subscribed: boolean;
   signedInVal: boolean;
   products: Article[];
   companyName: string;
@@ -51,14 +52,14 @@ interface AppState {
   setPortfolio: (val: []) => void;
   deletePortfolio: (val: string) => void;
   addToPortfolio: (val: string) => void;
-  setSubscribed: (val: string) => void;
+  setSubscribed: (val: boolean) => void;
   setcompanyName: (val: string) => void;
 }
 
 export const useStore = create<AppState>((set) => ({
   name: String(localStorage.getItem("name")),
   portfolio: JSON.parse(String(localStorage.getItem("portfolio"))),
-  subscribed: String(localStorage.getItem("subscribed")),
+  subscribed: Boolean(JSON.parse(String(localStorage.getItem("subscribed")))),
   signedInVal: Boolean(JSON.parse(String(localStorage.getItem("signedIn")))),
   companyName: String(localStorage.getItem("companyName")),
   products: [] as Article[],
@@ -89,9 +90,9 @@ export const useStore = create<AppState>((set) => ({
       x.push(val);
       localStorage.setItem("portfolio", JSON.stringify(x));
     }),
-  setSubscribed: (val: string) =>
+  setSubscribed: (val: boolean) =>
     set(() => {
-      localStorage.setItem("subscribed", val);
+      localStorage.setItem("subscribed", JSON.stringify(val));
     }),
   setcompanyName: (val: string) =>
     set(() => {
@@ -122,6 +123,9 @@ const App: React.FC = () => (
           <Route exact path="/login">
             <Login />
           </Route>
+          <Route exact path="/subscription">
+            <Subscription />
+          </Route>
           <Route exact path="/">
             <Redirect to="/home?q=Software companies" />
           </Route>
@@ -135,6 +139,12 @@ const App: React.FC = () => (
             <IonTabButton tab="portfolio" href="/list">
               <IonIcon icon={albums} />
               <IonLabel>Portfolio</IonLabel>
+            </IonTabButton>
+          )}
+          {useStore.getState().subscribed === false && (
+            <IonTabButton tab="subscription" href="/subscription">
+              <IonIcon icon={card} />
+              <IonLabel>Subscription</IonLabel>
             </IonTabButton>
           )}
           <IonTabButton tab="news" href="/news">
