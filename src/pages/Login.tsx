@@ -10,7 +10,7 @@ import { appAuth} from "../Firebase"
 const Auth = getAuth(appAuth);
 
 const Login: React.FC = () => {
-  const {setSignedIn, setPortfolio} = useStore();
+  const {setSignedIn, setPortfolio, setUid, setName} = useStore();
   const [username, setUsername] = useState<string>();
   const [password, setPasword] = useState<string>();
 
@@ -21,8 +21,9 @@ const Login: React.FC = () => {
     setSignedIn(true)
     const user = userCredential.user;
     console.log(user)
-    window.location.href = "/home?q=Software companies"
-    // setPortfolio([])
+    setPortfolio(user.uid)
+    setTimeout(()=>{window.location.href = "/home?q=Software companies"},400)
+    
   })
   .catch((error) => {
     const errorCode = error.code;
@@ -36,9 +37,11 @@ const Login: React.FC = () => {
       console.log(userCredential);
       setSignedIn(true)
       const user = userCredential.user;
-      console.log(user)
-      window.location.href = "/home?q=Software companies"
-      // setPortfolio([])
+      console.log(user.uid)
+      setName(String(user.displayName))
+      setUid(user.uid)
+      setPortfolio(user.uid)
+      setTimeout(()=>{window.location.href = "/home?q=Software companies"},400)
     })
     .catch((error) => {
       const errorCode = error.code;

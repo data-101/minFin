@@ -40,6 +40,18 @@ import { Article } from "./model/Article";
 import { home, albums, book, card } from "ionicons/icons";
 import Subscription from "./pages/Subscription";
 
+import { appAuth} from "./Firebase"
+
+var firebase = require('firebase/database');
+const update = firebase.update;
+const remove = firebase.remove;
+const ref = firebase.ref;
+const get = firebase.get;
+var set = firebase.set;
+var getDatabase = firebase.getDatabase;
+
+var db = getDatabase(appAuth)
+
 interface AppState {
   name: string;
   portfolio: string[];
@@ -47,17 +59,20 @@ interface AppState {
   signedInVal: boolean;
   products: Article[];
   companyName: string;
+  uid: string;
   setSignedIn: (val: boolean) => void;
   setName: (val: string) => void;
-  setPortfolio: (val: []) => void;
+  setPortfolio: (uid: string) => void;
   deletePortfolio: (val: string) => void;
   addToPortfolio: (val: string) => void;
   setSubscribed: (val: boolean) => void;
   setcompanyName: (val: string) => void;
+  setUid: (val: string) => void;
 }
 
 export const useStore = create<AppState>((set) => ({
   name: String(localStorage.getItem("name")),
+  uid: String(localStorage.getItem("uid")),
   portfolio: JSON.parse(String(localStorage.getItem("portfolio"))),
   subscribed: Boolean(JSON.parse(String(localStorage.getItem("subscribed")))),
   signedInVal: Boolean(JSON.parse(String(localStorage.getItem("signedIn")))),
@@ -71,16 +86,26 @@ export const useStore = create<AppState>((set) => ({
     set(() => {
       localStorage.setItem("name", val);
     }),
-  setPortfolio: (val: []) =>
+  setUid: (val: string) =>
     set(() => {
-      localStorage.setItem("portfolio", JSON.stringify(val));
+      localStorage.setItem('uid', val);
     }),
+  setPortfolio: (uid: string) =>
+  set(() => {
+    (async () => {
+      const val = await get(ref(db, '/portfolios/' + uid));
+      console.log(val.val())
+      localStorage.setItem("portfolio", JSON.stringify(Object.keys(val.val())));
+    }
+    )()
+  }),
   deletePortfolio: (val: string) =>
     set((state) => {
       val = val.toLowerCase();
       var x = state.portfolio?state.portfolio:[];
       x.splice(x.indexOf(val), 1);
       localStorage.setItem("portfolio", JSON.stringify(x));
+      console.log(remove(ref(db, '/portfolios/' + state.uid + '/' + val), {added: 1}));
     }),
   addToPortfolio: (val = "") =>
     set((state) => {
@@ -89,6 +114,7 @@ export const useStore = create<AppState>((set) => ({
       var x = state.portfolio? state.portfolio:[];
       x.push(val);
       localStorage.setItem("portfolio", JSON.stringify(x));
+      console.log(update(ref(db, '/portfolios/' + state.uid + '/' + val), {added: 1}));
     }),
   setSubscribed: (val: boolean) =>
     set(() => {
