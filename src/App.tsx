@@ -43,7 +43,7 @@ interface AppState {
   name: string;
   portfolio: string[];
   subscribed: string;
-  signedInVal: string;
+  signedInVal: boolean;
   products: Article[];
   companyName: string;
   setSignedIn: (val: string) => void;
@@ -59,7 +59,7 @@ export const useStore = create<AppState>((set) => ({
   name: String(localStorage.getItem("name")),
   portfolio: JSON.parse(String(localStorage.getItem("portfolio"))),
   subscribed: String(localStorage.getItem("subscribed")),
-  signedInVal: String(localStorage.getItem("signedIn")),
+  signedInVal: Boolean(localStorage.getItem("signedIn")),
   companyName: String(localStorage.getItem("companyName")),
   products: [] as Article[],
   setSignedIn: (val: string) =>
@@ -77,7 +77,7 @@ export const useStore = create<AppState>((set) => ({
   deletePortfolio: (val: string) =>
     set((state) => {
       val = val.toLowerCase();
-      var x = state.portfolio;
+      var x = state.portfolio?state.portfolio:[];
       x.splice(x.indexOf(val), 1);
       localStorage.setItem("portfolio", JSON.stringify(x));
     }),
@@ -85,7 +85,7 @@ export const useStore = create<AppState>((set) => ({
     set((state) => {
       val = val.toLowerCase();
       console.log(state.portfolio);
-      var x = state.portfolio;
+      var x = state.portfolio? state.portfolio:[];
       x.push(val);
       localStorage.setItem("portfolio", JSON.stringify(x));
     }),
@@ -131,7 +131,7 @@ const App: React.FC = () => (
             <IonIcon icon={home} />
             <IonLabel>Home</IonLabel>
           </IonTabButton>
-          {useStore.getState().signedInVal === "true" && (
+          {useStore.getState().signedInVal === true && (
             <IonTabButton tab="portfolio" href="/list">
               <IonIcon icon={albums} />
               <IonLabel>Portfolio</IonLabel>

@@ -54,7 +54,7 @@ const Login: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent>
-        { (useStore.getState().signedInVal === 'false' || useStore.getState().signedInVal === null) &&
+        { (useStore.getState().signedInVal === false || useStore.getState().signedInVal === null) &&
         <IonList>
           {/* <IonItemDivider>Default Input with Placeholder</IonItemDivider> */}
           <IonItem>
@@ -69,7 +69,7 @@ const Login: React.FC = () => {
         
         }
         <IonIcon icon={logoGoogle} onClick={googleLogin} size="large"/>
-        {(useStore.getState().signedInVal === 'true') && <p>Congrats You Have Successfully Signed In!</p>}
+        {(useStore.getState().signedInVal === true) && <p>Congrats You Have Successfully Signed In!</p>}
       </IonContent>
     </IonPage >
   );
