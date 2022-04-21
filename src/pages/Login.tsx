@@ -18,7 +18,7 @@ const Login: React.FC = () => {
     signInWithEmailAndPassword(Auth, username!, password!)
   .then(userCredential => {
     console.log(userCredential);
-    setSignedIn('true')
+    setSignedIn(true)
     const user = userCredential.user;
     console.log(user)
     window.location.href = "/home?q=Software companies"
@@ -34,7 +34,7 @@ const Login: React.FC = () => {
     signInWithPopup(Auth,new GoogleAuthProvider())
     .then(userCredential => {
       console.log(userCredential);
-      setSignedIn('true')
+      setSignedIn(true)
       const user = userCredential.user;
       console.log(user)
       window.location.href = "/home?q=Software companies"

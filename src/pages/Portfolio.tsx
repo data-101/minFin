@@ -32,7 +32,7 @@ const Portfolio: React.FC = () => {
         </IonHeader>
         <ExploreContainer />
         {/* <IonSearchbar inputmode="search" onIonChange={e => setSearchText(e.detail.value!)} onKeyPress={filter}></IonSearchbar> */}
-        < PortfolioList products={producList} />
+        < PortfolioList products={producList? producList:[]} />
       </IonContent >
     </IonPage >
 

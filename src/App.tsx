@@ -46,7 +46,7 @@ interface AppState {
   signedInVal: boolean;
   products: Article[];
   companyName: string;
-  setSignedIn: (val: string) => void;
+  setSignedIn: (val: boolean) => void;
   setName: (val: string) => void;
   setPortfolio: (val: []) => void;
   deletePortfolio: (val: string) => void;
@@ -59,12 +59,12 @@ export const useStore = create<AppState>((set) => ({
   name: String(localStorage.getItem("name")),
   portfolio: JSON.parse(String(localStorage.getItem("portfolio"))),
   subscribed: String(localStorage.getItem("subscribed")),
-  signedInVal: Boolean(localStorage.getItem("signedIn")),
+  signedInVal: Boolean(JSON.parse(String(localStorage.getItem("signedIn")))),
   companyName: String(localStorage.getItem("companyName")),
   products: [] as Article[],
-  setSignedIn: (val: string) =>
+  setSignedIn: (val: boolean) =>
     set((state) => {
-      localStorage.setItem("signedIn", val);
+      localStorage.setItem("signedIn", JSON.stringify(val));
     }),
   setName: (val: string) =>
     set(() => {

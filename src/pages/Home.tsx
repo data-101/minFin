@@ -22,10 +22,10 @@ const Home: React.FC = () => {
   useEffect(()=>{
     const q=new URLSearchParams(location.search).get('q');
     getProducts(q?q:searchText).then(products => setProductList(products));
-  },[location]);
+  },[]);
 
   const logout=()=>{
-    setSignedIn('false')
+    setSignedIn(false)
     window.location.href = "/home?q=Software companies"
   }
 
