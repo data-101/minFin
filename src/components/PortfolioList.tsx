@@ -62,14 +62,15 @@ export const PortfolioList: React.FC<ProductProps> = ({ products }) => {
                     className="speaker-item"
                     // routerLink={`/home?q=${product}`}
                   >
-                    <IonButton routerLink={`/home?q=${product}`}fill='clear'>
-                    <IonLabel color='dark'>
-                      <h1>{product}</h1>
-                    </IonLabel>
+                    <IonButton routerLink={`/home?q=${product}`} fill="clear">
+                      <IonLabel color="dark">
+                        <h1>{product}</h1>
+                      </IonLabel>
                     </IonButton>
                     <IonButton
                       slot="end"
                       onClick={() => deleteCompany(product)}
+                      color="red"
                     >
                       <IonIcon icon={trash} />
                     </IonButton>
