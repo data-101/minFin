@@ -93,16 +93,20 @@ const ProductPage: React.FC<ProductPageProp> = ({ match }) => {
                     </IonToolbar>
                 </IonHeader>
 
+                <div className="ion-text-center">
                 <div className="product-background" style={{flex:1 ,width: undefined, height: undefined, backgroundImage: `url(${product.image})`}}>
-                    <h2 style={{backgroundColor: "#171717"}}>
-                    <a>{product.title}</a></h2>
+                
+                    <h2 style={{backgroundColor: 'rgba(0,0,0, 0.46)', color: 'white'}}>
+                    {product.title}</h2>
+                </div>
                 </div>
 
                 <div className="ion-padding product-detail">
+                <div className="ion-text-justify">
                     <p> {product.summary}</p>
                     <p>Source: <a target="_blank" rel="noopener noreferrer" href={product.link}>{product.link}</a></p>
-                    <IonButton slot='end' onClick={addCompany} >Follow</IonButton>
-
+                    {useStore.getState().subscribed === true && (<IonButton slot='end' onClick={addCompany} >Follow</IonButton>)}
+                    </div>
                 </div>
             </IonContent>
             <IonActionSheet

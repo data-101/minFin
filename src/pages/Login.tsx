@@ -40,7 +40,9 @@ const Login: React.FC = () => {
         console.log(userCredential);
         setSignedIn(true);
         const user = userCredential.user;
-        console.log(user);
+        console.log(user.uid);
+        setName(String(user.displayName));
+        setUid(user.uid);
         setPortfolio(user.uid);
         setTimeout(() => {
           window.location.href = "/home?q=Software companies";
