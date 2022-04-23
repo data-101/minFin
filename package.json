@@ -1,6 +1,5 @@
 {
   "name": "minFin",
-  "homepage": "http://data-101.github.io/minFin",
   "version": "0.0.1",
   "private": true,
   "dependencies": {
